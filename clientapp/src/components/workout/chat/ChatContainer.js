@@ -10,6 +10,10 @@ const colors = theme.colors;
 export default React.forwardRef((props, ref) => {
 	const [chatHistory, setChatHistory] = React.useState(chatData?.chats ?? []);
 
+	const getOpenAiApiResult = async () => {
+		
+	}
+
 	const handleSendChat = React.useCallback(
 		(data) => {
 			setChatHistory((prevChatHistory) => {
