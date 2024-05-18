@@ -1,0 +1,33 @@
+html {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+#root {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+#main-container {
+    min-width: 400px !important;
+    width: 1750px !important;
+    max-width: 1750px !important;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    min-height: 100vh;
+}
