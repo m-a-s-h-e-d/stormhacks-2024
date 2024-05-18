@@ -43,7 +43,6 @@ export default React.forwardRef((props, ref) => {
 				gap={"0.5rem"}
 			>
 				<Flex
-                    ref={chatWindowRef}
 					id="chat-container"
 					direction={"column"}
 					w={"100%"}
