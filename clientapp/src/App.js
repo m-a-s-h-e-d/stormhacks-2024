@@ -3,6 +3,7 @@ import "./App.css";
 import LoginPage from "./components/login/LoginPage";
 import { useAuth } from "./context/AuthContext";
 import WorkoutPage from "./components/workout/WorkoutPage";
+import DashBoardPage from "./components/dashboard/DashBoardPage";
 
 function App() {
 	const { isAuthenticated, isAdmin } = useAuth();
@@ -23,6 +24,10 @@ function App() {
 				<Route
 					path="/workout"
 					element={isAuthenticated ? <WorkoutPage /> : <Navigate to="/login" />}
+				/>
+				<Route
+					path="/dashboard"
+					element={isAuthenticated ? <DashBoardPage /> : <Navigate to="/login" />}
 				/>
 			</Routes>
 		</div>
