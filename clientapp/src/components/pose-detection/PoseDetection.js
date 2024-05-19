@@ -77,7 +77,7 @@ export default React.forwardRef((props, ref) => {
 			const video = webcamRef.current.video;
 			const pose = await detector.estimatePoses(video);
 			const ctx = canvasRef.current?.getContext("2d");
-			ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+			ctx?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 			try {
 				const keypoints = pose[0].keypoints;
 				for (let i = 0; i < keypoints.length; i++) {
