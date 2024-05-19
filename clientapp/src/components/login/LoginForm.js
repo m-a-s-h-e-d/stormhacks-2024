@@ -35,7 +35,7 @@ export default React.forwardRef((props, ref) => {
 
 	const handleOnLogin = (data) => {
 		login({ email: data?.email})
-		navigate("/home");
+		navigate("/workout");
 	};
 
 	const onChangeClearError = React.useCallback(() => {

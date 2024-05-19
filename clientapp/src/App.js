@@ -3,6 +3,7 @@ import "./App.css";
 import LoginPage from "./components/login/LoginPage";
 import MediaPipe from "./components/media-pipe/MediaPipe";
 import { useAuth } from "./context/AuthContext";
+import WorkoutPage from "./components/workout/WorkoutPage";
 
 function App() {
 	const { isAuthenticated, isAdmin } = useAuth();
@@ -13,7 +14,7 @@ function App() {
 				<Route
 					path="/login"
 					element={
-						!isAuthenticated ? <LoginPage /> : <Navigate to="/home" />
+						!isAuthenticated ? <LoginPage /> : <Navigate to="/workout" />
 					}
 				/>
 				<Route
@@ -22,7 +23,11 @@ function App() {
 				/>
 				<Route
 					path="/"
-					element={isAuthenticated ? <Navigate to='/home' /> : <Navigate to="/login" />}
+					element={isAuthenticated ? <Navigate to='/workout' /> : <Navigate to="/login" />}
+				/>
+				<Route
+					path="/workout"
+					element={isAuthenticated ? <WorkoutPage /> : <Navigate to="/login" />}
 				/>
 			</Routes>
 		</div>
