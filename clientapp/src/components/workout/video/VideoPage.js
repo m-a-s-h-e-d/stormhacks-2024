@@ -6,12 +6,8 @@ import { useNavigate } from "react-router-dom";
 const colors = theme.colors;
 
 export default React.forwardRef((props, ref) => {
-	const { handleAddRep, isFinished, isSendingChat } = props;
+	const { handleAddRep, isFinished, isSendingChat, handleFinishWorkout } = props;
 	const navigate = useNavigate();
-
-	const handleFinishWorkout = React.useCallback(() => {
-		navigate("/home");
-	}, [navigate]);
 
 	return (
 		<Flex

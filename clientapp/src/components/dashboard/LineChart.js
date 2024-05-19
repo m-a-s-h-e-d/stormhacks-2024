@@ -2,18 +2,9 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { theme } from "@chakra-ui/theme";
 
-const colors = theme.colors;
-const data = [
-	["# of squat", "Goal", "Properly Done"],
-	["May 12", 30, 30],
-	["May 13", 35, 33],
-	["May 14", 35, 38],
-	["May 15", 40, 40],
-	["May 16", 40, 45],
-	["May 17", 50, 48],
-	["May 18", 60, 50],
-];
+import useLocalStorage from "../../hooks/useLocalStorage";
 
+const colors = theme.colors;
 const options = {
 	title: "Number of reps (Last 7days)",
 	titleTextStyle: {
@@ -24,7 +15,7 @@ const options = {
 	legend: { position: "in" },
 	vAxis: {
 		viewWindow: {
-			min: 20, // minimum value for the y-axis
+			min: 0, // minimum value for the y-axis
 			max: 70, // maximum value for the y-axis
 		},
 		gridlines: {
@@ -45,6 +36,7 @@ const options = {
 };
 
 export default React.forwardRef((props, ref) => {
+  const { data } = props;
 	return (
 		<Chart
 			chartType="LineChart"

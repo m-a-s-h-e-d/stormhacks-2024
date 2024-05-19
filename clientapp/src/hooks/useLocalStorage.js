@@ -1,9 +1,7 @@
 import { useState } from "react";
 
 export const setWithExpiry = (key, value, ttl) => {
-	if (!ttl) {
-		ttl = 3600000;
-	}
+	ttl = ttl || 3600000;
 	const now = new Date();
 
 	const item = {
@@ -34,6 +32,9 @@ export const getWithExpiry = (key) => {
 const useLocalStorage = (initialData, key, ttl = 3600000) => {
 	const [data, setData] = useState(() => {
 		const storedData = getWithExpiry(key);
+		if (storedData === null) {
+			setWithExpiry(key, initialData, ttl);
+		}
 		return storedData !== null ? storedData : initialData;
 	});
 

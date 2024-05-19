@@ -1,21 +1,30 @@
 import React from "react";
 import { theme } from "@chakra-ui/theme";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import ProgressContainer from "./ProgressContainer";
 import ChatContainer from "./chat/ChatContainer";
 import VideoPage from "./video/VideoPage";
 import OpenAi from "openai";
 import workoutSample from "../../workout.json";
-import { getWithExpiry } from "../../hooks/useLocalStorage";
+import { getWithExpiry, setWithExpiry } from "../../hooks/useLocalStorage";
+import FinishWorkout from "./FinishWorkout";
+import { useNavigate } from "react-router-dom";
 const colors = theme.colors;
 
 export default React.forwardRef((props, ref) => {
+	const navigate = useNavigate();
+	const {
+		isOpen: isFinishModalOpen,
+		onOpen: onFinishModalOpen,
+		onClose: onFinishModalClose,
+	} = useDisclosure();
 	const [currentRep, setCurrentRep] = React.useState(0);
 	const [chatHistory, setChatHistory] = React.useState([]);
 	const [isSendingChat, setIsSendingChat] = React.useState(false);
 	const workout = React.useMemo(() => {
 		return getWithExpiry("currentWorkout") ?? workoutSample;
 	}, []);
+
 
 	const totalRep = React.useMemo(() => {
 		return workout?.routine.reduce((acc, curr) => {
@@ -123,9 +132,35 @@ export default React.forwardRef((props, ref) => {
 		if (isFinished || isSendingChat) {
 			return;
 		}
-		manualAddRepChat();
+		// manualAddRepChat(); // TODO: Uncomment this line to enable manual rep chat
 		setCurrentRep((prev) => prev + 1);
 	}, [isFinished, manualAddRepChat, isSendingChat]);
+
+	const handleFinishWorkout = React.useCallback(() => {
+		const currentDate = new Date();
+		const formattedDate = currentDate.toLocaleDateString("en-US", {
+			month: "long",
+			day: "numeric",
+			year: "numeric",
+		});
+		const workoutData = [
+			formattedDate,
+			totalRep,
+			currentRep
+		]
+		const data = getWithExpiry("progressData") ?? [["# of squat", "Goal Reps", "Properly Done Reps"]];
+		data.push(workoutData);
+		console.log(data)
+		setWithExpiry("progressData", data, 86400000);
+		onFinishModalClose();
+		navigate("/home");
+	}, [onFinishModalClose, currentRep, totalRep]);
+	
+	React.useEffect(() => {
+		if (isFinished) {
+			onFinishModalOpen();
+		}
+	}, [isFinished, onFinishModalOpen]);
 
 	return (
 		<Flex direction={"column"} w={"100%"} h={"100%"} gap={"2rem"}>
@@ -146,6 +181,7 @@ export default React.forwardRef((props, ref) => {
 					isSendingChat={isSendingChat}
 					isFinished={isFinished}
 					handleAddRep={handleAddRep}
+					handleFinishWorkout={handleFinishWorkout}
 				/>
 				<ChatContainer
 					isSendingChat={isSendingChat}
@@ -153,6 +189,11 @@ export default React.forwardRef((props, ref) => {
 					handleSendChat={handleSendChat}
 				/>
 			</Flex>
+			<FinishWorkout
+				isOpen={isFinishModalOpen}
+				onClose={onFinishModalClose}
+				handleOnReturnClick={handleFinishWorkout}
+			/>
 		</Flex>
 	);
 });
