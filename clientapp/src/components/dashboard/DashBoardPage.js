@@ -34,22 +34,11 @@ export default React.forwardRef((props, ref) => {
   return (
     <Flex direction={"column"} w={"100%"} h={"100%"} gap={"2rem"}>
       <Text>Welcome to FitFriend!</Text>
-      <Flex
-        id="content-container"
-        direction={"row"}
-        w={"100%"}
-        h={"150px"}
-        flex={1}
-        gap={"1rem"}
-      >
-        <LineChart/>
-        <Flex
-          id="video-container"
-          direction={"column"}
-          w={"40%"}
-          h={"100%"}
-          flex={1}
-        >
+      <Flex direction={"row"} w={"100%"} h={"150px"} flex={1} gap={"1rem"}>
+        <Flex flex={2} h={"100%"}>
+          <LineChart />
+        </Flex>
+        <Flex id="workoutCards" direction={"column"} flex={1} h={"100%"}>
           {workoutList.map((workoutInfo, index) => (
             <WorkoutCard key={index} workoutInfo={workoutInfo}></WorkoutCard>
           ))}
@@ -58,3 +47,4 @@ export default React.forwardRef((props, ref) => {
     </Flex>
   );
 });
+ 
