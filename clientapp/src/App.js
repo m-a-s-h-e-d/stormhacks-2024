@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./components/login/LoginPage";
+import MediaPipe from "./components/media-pipe/MediaPipe";
 import { useAuth } from "./context/AuthContext";
 import WorkoutPage from "./components/workout/WorkoutPage";
 import { Button } from "@chakra-ui/react";
@@ -16,6 +17,10 @@ function App() {
 					element={
 						!isAuthenticated ? <LoginPage /> : <Navigate to="/workout" />
 					}
+				/>
+				<Route
+					path="/test"
+					element={<MediaPipe />}
 				/>
 				<Route
 					path="/"
