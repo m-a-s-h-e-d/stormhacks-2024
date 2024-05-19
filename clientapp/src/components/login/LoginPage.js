@@ -23,7 +23,7 @@ export default function Login() {
 	return (
 		<Flex
 			id="login-container"
-			backgroundColor={colors.teal[200]}
+			backgroundColor={"primaryOrange.200"}
 			alignSelf={"center"}
 			w={{ base: "100%", md: "80%" }}
 			h={"700"}
@@ -33,15 +33,15 @@ export default function Login() {
 				<Center w="60%" paddingBottom={"7rem"}>
 					<SlideFade offsetY={200} in={true}>
 						<Heading
-							color={colors.teal[800]}
+							color={"primaryOrange.800"}
 							size={"3xl"}
 							marginBottom={"1rem"}
 							textAlign={"center"}
 						>
-							Get Fit or smth
+							FitFriend
 						</Heading>
-						<Heading color={colors.teal[500]} size={"md"}>
-							motivational words motivational words
+						<Heading textAlign={"center"} color={"primaryOrange500"} size={"md"}>
+							Putting the AI in Training
 						</Heading>
 					</SlideFade>
 				</Center>

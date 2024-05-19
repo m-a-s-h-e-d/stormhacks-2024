@@ -14,10 +14,6 @@ const options = {
 	curveType: "function",
 	legend: { position: "in" },
 	vAxis: {
-		viewWindow: {
-			min: 0, // minimum value for the y-axis
-			max: 70, // maximum value for the y-axis
-		},
 		gridlines: {
 			// color: 'none', // Removes the gridlines on the y-axis
 			count: 5,
@@ -36,7 +32,7 @@ const options = {
 };
 
 export default React.forwardRef((props, ref) => {
-  const { data } = props;
+	const { data } = props;
 	return (
 		<Chart
 			chartType="LineChart"

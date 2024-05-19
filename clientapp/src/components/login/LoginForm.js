@@ -52,16 +52,6 @@ export default React.forwardRef((props, ref) => {
 			padding={"4rem"}
 			backgroundColor=""
 		>
-			<Show below="md">
-				<SlideFade offsetY={-200} in={true}>
-					<Heading color={colors.teal[800]} size={"xl"} textAlign={"center"}>
-						Rephrasify
-					</Heading>
-					<Heading color={colors.teal[500]} size={"sm"}>
-						Elevate Your Expressions with AI
-					</Heading>
-				</SlideFade>
-			</Show>
 			<form id="login-form" onSubmit={handleSubmit(handleOnLogin)}>
 				{errors.invalidLogin && (
 					<Alert status="error" mb="1rem" borderRadius={"0.5rem"}>
@@ -100,7 +90,7 @@ export default React.forwardRef((props, ref) => {
 				<br />
 				<Button
 					mt={4}
-					colorScheme="teal"
+					colorScheme="primaryOrange"
 					isLoading={isSubmitting}
 					type="submit"
 				>

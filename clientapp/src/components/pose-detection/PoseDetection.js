@@ -19,7 +19,7 @@ let interval;
 let skeletonColor = "rgb(255,0,0)";
 
 export default React.forwardRef((props, ref) => {
-  const { repCount, setRepCount } = props;
+	const { repCount, setRepCount } = props;
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
 
@@ -30,7 +30,7 @@ export default React.forwardRef((props, ref) => {
 	useEffect(() => {
 		tf.ready().then(() => {
 			console.log("TF ready");
-      runMovenet();
+			runMovenet();
 		});
 	}, []);
 
@@ -46,6 +46,7 @@ export default React.forwardRef((props, ref) => {
 		} else if (!isRepping && previousState) {
 			setPreviousState(false);
 			setRepCount(repCount + 1);
+			// TODO: add random chance to give unsolicited advise/motivation
 			console.log("Rep Count: ", repCount);
 		}
 	}, [isRunning, isRepping, previousState, repCount]);
@@ -75,7 +76,7 @@ export default React.forwardRef((props, ref) => {
 			let notDetected = 0;
 			const video = webcamRef.current.video;
 			const pose = await detector.estimatePoses(video);
-			const ctx = canvasRef.current.getContext("2d");
+			const ctx = canvasRef.current?.getContext("2d");
 			ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 			try {
 				const keypoints = pose[0].keypoints;

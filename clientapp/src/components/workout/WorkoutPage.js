@@ -25,7 +25,6 @@ export default React.forwardRef((props, ref) => {
 		return getWithExpiry("currentWorkout") ?? workoutSample;
 	}, []);
 
-
 	const totalRep = React.useMemo(() => {
 		return workout?.routine.reduce((acc, curr) => {
 			return acc + curr.reps * curr.sets;
@@ -119,10 +118,19 @@ export default React.forwardRef((props, ref) => {
 		});
 	}, [handleSendChat, currentWorkoutName]);
 
-	const aiAddChat = React.useCallback(() => {
+	const aiUnsolicitedAdvise = React.useCallback(() => {
 		handleSendChat(
 			{
-				chat: `The AI noticed the last rep you did was a bit off, can you give the user some tips on how to improve their form? They're doing ${currentWorkoutName}. Some motivation would be great too if highlighted!`,
+				chat: `The AI noticed the last rep you did was a bit off, can you give the user some tips on how to improve their form? They're doing ${currentWorkoutName}.`,
+			},
+			true
+		);
+	}, [handleSendChat, currentWorkoutName]);
+
+	const aiMotivation = React.useCallback(() => {
+		handleSendChat(
+			{
+				chat: `The AI noticed the last rep you did was perfect, can you give the user some words of encouragement like a great partner would do? They're doing ${currentWorkoutName}.`,
 			},
 			true
 		);
@@ -132,7 +140,7 @@ export default React.forwardRef((props, ref) => {
 		if (isFinished || isSendingChat) {
 			return;
 		}
-		// manualAddRepChat(); // TODO: Uncomment this line to enable manual rep chat
+		manualAddRepChat(); // TODO: Uncomment this line to enable manual rep chat
 		setCurrentRep((prev) => prev + 1);
 	}, [isFinished, manualAddRepChat, isSendingChat]);
 
@@ -143,24 +151,43 @@ export default React.forwardRef((props, ref) => {
 			day: "numeric",
 			year: "numeric",
 		});
-		const workoutData = [
-			formattedDate,
-			totalRep,
-			currentRep
-		]
-		const data = getWithExpiry("progressData") ?? [["# of squat", "Goal Reps", "Properly Done Reps"]];
-		data.push(workoutData);
-		console.log(data)
+		const workoutData = [formattedDate, totalRep, currentRep];
+		const data = getWithExpiry("progressData") ?? [
+			["# of squat", "Goal Reps", "Properly Done Reps"],
+		];
+		const lastData = data[data.length - 1];
+		if (lastData[0] !== formattedDate) {
+			data.push(workoutData);
+		} else {
+			workoutData[1] += lastData[1];
+			workoutData[2] += lastData[2];
+			data[data.length - 1] = workoutData;
+		}
 		setWithExpiry("progressData", data, 86400000);
 		onFinishModalClose();
 		navigate("/home");
 	}, [onFinishModalClose, currentRep, totalRep]);
-	
+
 	React.useEffect(() => {
 		if (isFinished) {
 			onFinishModalOpen();
 		}
 	}, [isFinished, onFinishModalOpen]);
+
+	const handleIncrementRep = React.useCallback(() => {
+		if (!isFinished) {
+			// Generate a random number between 0 and 1
+			const randomNumber = Math.random();
+
+			// 70% probability
+			if (randomNumber < 0.7) {
+				aiUnsolicitedAdvise();
+			} else {
+				aiMotivation();
+			}
+			setCurrentRep((prev) => prev + 1);
+		}
+	}, [currentRep, isFinished]);
 
 	return (
 		<Flex direction={"column"} w={"100%"} h={"100%"} gap={"2rem"}>
@@ -183,7 +210,7 @@ export default React.forwardRef((props, ref) => {
 					handleAddRep={handleAddRep}
 					handleFinishWorkout={handleFinishWorkout}
 					currentRep={currentRep}
-					setCurrentRep={setCurrentRep}
+					setCurrentRep={handleIncrementRep}
 				/>
 				<ChatContainer
 					isSendingChat={isSendingChat}
