@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./components/login/LoginPage";
-import MediaPipe from "./components/media-pipe/MediaPipe";
 import { useAuth } from "./context/AuthContext";
 import WorkoutPage from "./components/workout/WorkoutPage";
+import PoseDetection from "./components/pose-detection/PoseDetection";
 
 function App() {
 	const { isAuthenticated, isAdmin } = useAuth();
@@ -19,7 +19,7 @@ function App() {
 				/>
 				<Route
 					path="/test"
-					element={<MediaPipe />}
+					element={<PoseDetection />}
 				/>
 				<Route
 					path="/"
