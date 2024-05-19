@@ -3,6 +3,7 @@ import "./App.css";
 import LoginPage from "./components/login/LoginPage";
 import { useAuth } from "./context/AuthContext";
 import WorkoutPage from "./components/workout/WorkoutPage";
+import { Button } from "@chakra-ui/react";
 
 function App() {
 	const { isAuthenticated, isAdmin } = useAuth();
@@ -18,7 +19,11 @@ function App() {
 				/>
 				<Route
 					path="/"
-					element={isAuthenticated ? <Navigate to='/workout' /> : <Navigate to="/login" />}
+					element={isAuthenticated ? <Navigate to='/home' /> : <Navigate to="/login" />}
+				/>
+				<Route
+					path="/home"
+					element={isAuthenticated ? <Button>Workout brah</Button> : <Navigate to="/login" />}
 				/>
 				<Route
 					path="/workout"

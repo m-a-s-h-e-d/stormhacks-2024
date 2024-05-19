@@ -1,0 +1,20 @@
+{
+	"workoutName": "Stronglifts",
+	"routine": [
+		{
+			"name": "Squat",
+			"sets": 3,
+			"reps": 5
+		},
+		{
+			"name": "Bench Press",
+			"sets": 3,
+			"reps": 5
+		},
+		{
+			"name": "Deadlift",
+			"sets": 1,
+			"reps": 5
+		}
+	]
+}
