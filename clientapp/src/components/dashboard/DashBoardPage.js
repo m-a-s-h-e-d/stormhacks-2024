@@ -1,21 +1,36 @@
 import React from "react";
-import {
-  Alert,
-  Flex,
-  AlertIcon,
-  AlertTitle,
-  ListItem,
-  Button,
-  UnorderedList,
-  Text,
-  Box,
-} from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { theme } from "@chakra-ui/theme";
 import WorkoutCard from "./WorkoutCard";
 
-const colors = theme.colors;
-
 export default React.forwardRef((props, ref) => {
+  //hardcoded workouts - need to be changed
+  const workoutList = [
+    {
+      title: "Legs",
+      exercises: [
+        "Lorem ipsum dolor sit amet",
+        "Consectetur adipiscing elit",
+        "Integer molestie lorem at massa<",
+      ],
+    },
+    {
+      title: "Arms",
+      exercises: [
+        "Lorem ipsum dolor sit amet",
+        "Consectetur adipiscing elit",
+        "Integer molestie lorem at massa<",
+      ],
+    },
+    {
+      title: "Back",
+      exercises: [
+        "Lorem ipsum dolor sit amet",
+        "Consectetur adipiscing elit",
+        "Integer molestie lorem at massa<",
+      ],
+    },
+  ];
   return (
     <Flex direction={"column"} w={"100%"} h={"100%"} gap={"2rem"}>
       <Text>Welcome to FitFriend!</Text>
@@ -37,9 +52,9 @@ export default React.forwardRef((props, ref) => {
           h={"100%"}
           flex={1}
         >
-          <WorkoutCard></WorkoutCard>
-		  <WorkoutCard></WorkoutCard>
-		  <WorkoutCard></WorkoutCard>
+          {workoutList.map((workoutInfo) => (
+            <WorkoutCard workoutInfo={workoutInfo}></WorkoutCard>
+          ))}
         </Flex>
       </Flex>
     </Flex>
