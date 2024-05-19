@@ -6,13 +6,17 @@ import ChatContainer from "./chat/ChatContainer";
 import VideoPage from "./video/VideoPage";
 import OpenAi from "openai";
 import workoutSample from "../../workout.json";
+import { getWithExpiry } from "../../hooks/useLocalStorage";
 const colors = theme.colors;
 
 export default React.forwardRef((props, ref) => {
-	const [workout, setWorkout] = React.useState(workoutSample ?? {});
 	const [currentRep, setCurrentRep] = React.useState(0);
 	const [chatHistory, setChatHistory] = React.useState([]);
 	const [isSendingChat, setIsSendingChat] = React.useState(false);
+	const workout = React.useMemo(() => {
+		return getWithExpiry("currentWorkout") ?? workoutSample;
+	}, []);
+
 	const totalRep = React.useMemo(() => {
 		return workout?.routine.reduce((acc, curr) => {
 			return acc + curr.reps * curr.sets;

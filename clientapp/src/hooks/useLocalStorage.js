@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-const setWithExpiry = (key, value, ttl) => {
+export const setWithExpiry = (key, value, ttl) => {
+	if (!ttl) {
+		ttl = 3600000;
+	}
 	const now = new Date();
 
 	const item = {
