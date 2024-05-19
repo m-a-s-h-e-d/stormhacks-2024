@@ -23,18 +23,31 @@ export default function PoseDetection() {
   const canvasRef = useRef(null);
 
   const [isRunning, setIsRunning] = useState(false);
-  const [squatCount, setSquatCount] = useState(0); // Start with no squats
-  const [previousPose, setPreviousPose] = useState("No_Pose"); // Start with no pose
-  const [currentPose, setCurrentPose] = useState("No_Pose"); // Start with no pose
-
-  // Change current pose upon pose detection, and then update previous pose
-  // In order for a squat to count, it must go from Squat_Down to Squat_Up or Squad_Up to Squat_Down
+  const [repCount, setRepCount] = useState(0); // Start with 0 reps
+  const [previousState, setPreviousState] = useState(false);
+  const [isRepping, setIsRepping] = useState(false); // Start with no action
 
   useEffect(() => {
     tf.ready().then(() => {
       console.log("TF ready");
     });
   }, []);
+
+  useEffect(() => {
+    if (!isRunning) {
+      return;
+    }
+
+    // console.log("isRepping: ", isRepping);
+    // console.log("previousState: ", previousState);
+    if (isRepping && !previousState) {
+      setPreviousState(isRepping);
+    } else if (!isRepping && previousState) {
+      setPreviousState(false);
+      setRepCount(repCount + 1);
+      console.log("Rep Count: ", repCount);
+    }
+  }, [isRunning, isRepping, previousState, repCount]);
 
   const runMovenet = async () => {
     const detectorConfig = {
@@ -103,17 +116,16 @@ export default function PoseDetection() {
         const processedInput = landmarks_to_embedding(input);
         const classification = poseClassifier.predict(processedInput);
 
-        // classification.array().then((data) => {
-        //   const classNo = POSES[currentPose];
-        //   console.log(data[0][classNo]);
-        //   if (data[0][classNo] > 0.97) {
-        //     VALID POSE, INVERT THE NEXT SQUAT POSITION AND INCREMENT COUNTER
-        //     skeletonColor = "rgb(0,255,0)";
-        //   } else {
-        //     INVALID POSE, SET PREVIOUS TO NO_POSE AND INVERT THE NEXT SQUAT POSITION
-        //     skeletonColor = "rgb(255,255,255)";
-        //   }
-        // });
+        classification.array().then((data) => {
+          const classNo = 0;
+          if (data[0][classNo] > 0.5) {
+            setIsRepping(true);
+            skeletonColor = "rgb(0,255,0)";
+          } else {
+            setIsRepping(false);
+            skeletonColor = "rgb(255,0,0)";
+          }
+        });
       } catch (err) {
         console.log(err);
       }
