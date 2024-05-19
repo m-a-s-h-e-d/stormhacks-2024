@@ -7,7 +7,14 @@ import PoseDetection from "../../pose-detection/PoseDetection";
 const colors = theme.colors;
 
 export default React.forwardRef((props, ref) => {
-	const { handleAddRep, isFinished, isSendingChat, handleFinishWorkout } = props;
+	const {
+		currentStep,
+		setCurrentStep,
+		handleAddRep,
+		isFinished,
+		isSendingChat,
+		handleFinishWorkout,
+	} = props;
 	const navigate = useNavigate();
 
 	return (
@@ -41,7 +48,7 @@ export default React.forwardRef((props, ref) => {
 			</Flex>
 
 			<AspectRatio w="100%" h="100%" borderRadius={"lg"}>
-				<PoseDetection />
+				<PoseDetection currentRep={currentRep} setCurrentRep={setCurrentRep} />
 			</AspectRatio>
 		</Flex>
 	);

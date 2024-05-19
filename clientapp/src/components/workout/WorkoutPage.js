@@ -182,6 +182,8 @@ export default React.forwardRef((props, ref) => {
 					isFinished={isFinished}
 					handleAddRep={handleAddRep}
 					handleFinishWorkout={handleFinishWorkout}
+					currentRep={currentRep}
+					setCurrentRep={setCurrentRep}
 				/>
 				<ChatContainer
 					isSendingChat={isSendingChat}

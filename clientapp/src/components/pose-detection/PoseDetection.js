@@ -18,12 +18,12 @@ const colors = theme.colors;
 let interval;
 let skeletonColor = "rgb(255,0,0)";
 
-export default function PoseDetection() {
+export default React.forwardRef((props, ref) => {
+  const { repCount, setRepCount } = props;
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
 
 	const [isRunning, setIsRunning] = useState(true);
-	const [repCount, setRepCount] = useState(0); // Start with 0 reps
 	const [previousState, setPreviousState] = useState(false);
 	const [isRepping, setIsRepping] = useState(false); // Start with no action
 
@@ -163,4 +163,4 @@ export default function PoseDetection() {
 			></canvas>
 		</>
 	);
-}
+});
