@@ -2,6 +2,7 @@ import React from "react";
 import { theme } from "@chakra-ui/theme";
 import { AspectRatio, Button, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import PoseDetection from "../../pose-detection/PoseDetection";
 
 const colors = theme.colors;
 
@@ -40,11 +41,7 @@ export default React.forwardRef((props, ref) => {
 			</Flex>
 
 			<AspectRatio w="100%" h="100%" borderRadius={"lg"}>
-				<iframe
-					title="naruto"
-					src="https://www.youtube.com/embed/lIfqSoaqt98"
-					allowFullScreen
-				/>
+				<PoseDetection />
 			</AspectRatio>
 		</Flex>
 	);
