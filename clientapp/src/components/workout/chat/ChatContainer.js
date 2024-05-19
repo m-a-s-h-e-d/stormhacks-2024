@@ -2,41 +2,14 @@ import React from "react";
 import { theme } from "@chakra-ui/theme";
 import { Flex } from "@chakra-ui/react";
 import ChatBlob from "./ChatBlob";
-import chatData from "../../../chat.json";
 import ChatInput from "./ChatInput";
 
-const colors = theme.colors;
 
 export default React.forwardRef((props, ref) => {
-	const [chatHistory, setChatHistory] = React.useState(chatData?.chats ?? []);
-
-	const getOpenAiApiResult = async () => {
-		
-	}
-
-	const handleSendChat = React.useCallback(
-		(data) => {
-			setChatHistory((prevChatHistory) => {
-				return [
-					...prevChatHistory,
-					{
-						message: data?.chat,
-						isFromUser: true,
-					},
-				];
-			});
-            // TODO: Add send chat here
-		},
-		[setChatHistory]
-	);
+	const { chatHistory, handleSendChat, isSendingChat } = props;
 
 	return (
-		<Flex
-			direction={"column"}
-			w={"40%"}
-			h={"100%"}
-			padding="1rem"
-		>
+		<Flex direction={"column"} w={"40%"} h={"100%"} padding="1rem">
 			<Flex
 				direction={"column"}
 				w={"100%"}
@@ -58,15 +31,11 @@ export default React.forwardRef((props, ref) => {
 					gap={"1rem"}
 				>
 					{chatHistory.map((chat, index) => (
-						<ChatBlob
-							key={index}
-							message={chat?.message}
-							isFromUser={chat?.isFromUser}
-						/>
+						<ChatBlob key={index} chat={chat} />
 					))}
 				</Flex>
 
-				<ChatInput handleSendChat={handleSendChat} />
+				<ChatInput isSendingChat={isSendingChat} handleSendChat={handleSendChat} />
 			</Flex>
 		</Flex>
 	);

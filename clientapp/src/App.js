@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./components/login/LoginPage";
+import MediaPipe from "./components/media-pipe/MediaPipe";
 import { useAuth } from "./context/AuthContext";
 import WorkoutPage from "./components/workout/WorkoutPage";
 import DashBoardPage from "./components/dashboard/DashBoardPage";
@@ -18,15 +19,19 @@ function App() {
 					}
 				/>
 				<Route
+					path="/test"
+					element={<MediaPipe />}
+				/>
+				<Route
 					path="/"
-					element={isAuthenticated ? <Navigate to='/workout' /> : <Navigate to="/login" />}
+					element={isAuthenticated ? <Navigate to='/home' /> : <Navigate to="/login" />}
 				/>
 				<Route
 					path="/workout"
 					element={isAuthenticated ? <WorkoutPage /> : <Navigate to="/login" />}
 				/>
 				<Route
-					path="/dashboard"
+					path="/home"
 					element={isAuthenticated ? <DashBoardPage /> : <Navigate to="/login" />}
 				/>
 			</Routes>
