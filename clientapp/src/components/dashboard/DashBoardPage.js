@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Text } from "@chakra-ui/react";
-import { theme } from "@chakra-ui/theme";
 import WorkoutCard from "./WorkoutCard";
+import LineChart from "./LineChart";
 
 export default React.forwardRef((props, ref) => {
   //hardcoded workouts - need to be changed
@@ -42,18 +42,16 @@ export default React.forwardRef((props, ref) => {
         flex={1}
         gap={"1rem"}
       >
-        <Text w={"60%"} h={"100%"}>
-          Graph area
-        </Text>
+        <LineChart/>
         <Flex
           id="video-container"
           direction={"column"}
-          w={"60%"}
+          w={"40%"}
           h={"100%"}
           flex={1}
         >
-          {workoutList.map((workoutInfo) => (
-            <WorkoutCard workoutInfo={workoutInfo}></WorkoutCard>
+          {workoutList.map((workoutInfo, index) => (
+            <WorkoutCard key={index} workoutInfo={workoutInfo}></WorkoutCard>
           ))}
         </Flex>
       </Flex>
