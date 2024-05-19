@@ -7,6 +7,11 @@ import ChatInput from "./ChatInput";
 
 export default React.forwardRef((props, ref) => {
 	const { chatHistory, handleSendChat, isSendingChat } = props;
+	const containerRef = React.useRef(null);
+
+	React.useEffect(() => {
+		containerRef.current.scrollTop = containerRef.current.scrollHeight;
+	}, [chatHistory]);
 
 	return (
 		<Flex direction={"column"} w={"40%"} h={"100%"} padding="1rem">
@@ -20,6 +25,7 @@ export default React.forwardRef((props, ref) => {
 				gap={"0.5rem"}
 			>
 				<Flex
+					ref={containerRef}
 					id="chat-container"
 					direction={"column"}
 					w={"100%"}

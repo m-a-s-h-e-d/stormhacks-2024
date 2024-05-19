@@ -1,19 +1,14 @@
 [
 	{
-		"workoutName": "Stronglifts",
+		"workoutName": "Test Workout",
 		"routine": [
 			{
-				"name": "Squat",
-				"sets": 3,
+				"name": "Overhead Press",
+				"sets": 1,
 				"reps": 5
 			},
 			{
-				"name": "Bench Press",
-				"sets": 3,
-				"reps": 5
-			},
-			{
-				"name": "Deadlift",
+				"name": "Bicep Curl",
 				"sets": 1,
 				"reps": 5
 			}
