@@ -143,6 +143,7 @@ export default function PoseDetection() {
   }
 
   // MODIFY THESE SIZES TO MATCH YOUR WEBCAM/CAMERA RESOLUTION
+  // Console log the video element on properties [videoWidth, videoHeight] to see your resolution and then set both the Webcam and Canvas to that resolution
   if (isRunning) {
     return (
       <>
