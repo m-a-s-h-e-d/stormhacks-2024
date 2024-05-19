@@ -180,9 +180,9 @@ export default React.forwardRef((props, ref) => {
 			const randomNumber = Math.random();
 
 			// 70% probability
-			if (randomNumber < 0.7) {
+			if (randomNumber < 0.3) {
 				aiUnsolicitedAdvise();
-			} else {
+			} else if (randomNumber < 0.7) {
 				aiMotivation();
 			}
 			setCurrentRep((prev) => prev + 1);
